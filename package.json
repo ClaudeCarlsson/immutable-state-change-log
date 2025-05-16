@@ -1,0 +1,71 @@
+{
+  "name": "immutable-state-change-log",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "main": "index.js",
+  "scripts": {
+    "prepare": "husky",
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "lint:fix": "eslint . --ext .js,.jsx,.ts,.tsx --fix",
+    "format": "prettier --write .",
+    "build:ts": "tsc -b",
+    "build:web-ui": "npm --prefix packages/web-ui run build",
+    "build": "npm run build:ts && npm run build:web-ui",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ClaudeCarlsson/immutable-state-change-log.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ClaudeCarlsson/immutable-state-change-log/issues"
+  },
+  "homepage": "https://github.com/ClaudeCarlsson/immutable-state-change-log#readme",
+  "description": "",
+  "devDependencies": {
+    "@eslint/js": "^9.27.0",
+    "@eslint/migrate-config": "^1.5.0",
+    "@nomicfoundation/hardhat-toolbox": "^2.0.1",
+    "@typescript-eslint/eslint-plugin": "^8.32.1",
+    "@typescript-eslint/parser": "^8.32.1",
+    "eslint": "^9.27.0",
+    "eslint-config-prettier": "^10.1.5",
+    "eslint-plugin-import": "^2.31.0",
+    "eslint-plugin-jsx-a11y": "^6.10.2",
+    "eslint-plugin-prettier": "^5.4.0",
+    "eslint-plugin-react": "^7.37.5",
+    "eslint-plugin-react-hooks": "^5.2.0",
+    "globals": "^16.1.0",
+    "hardhat": "^2.19.2",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.0.0",
+    "prettier": "^3.5.3",
+    "snarkjs": "^0.7.5",
+    "typescript": "^5.8.3",
+    "typescript-eslint": "^8.32.1"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx,json,md}": [
+      "npm run lint:fix",
+      "npm run format"
+    ]
+  },
+  "dependencies": {
+    "rxjs": "^7.8.2"
+  },
+  "overrides": {
+    "glob": "^9.3.0",
+    "rimraf": "^4.1.0",
+    "inflight": "^1.0.6",
+    "npmlog": "^6.0.2",
+    "are-we-there-yet": "^4.0.2",
+    "gauge": "^4.0.4",
+    "@npmcli/move-file": "^1.1.2"
+  }
+}

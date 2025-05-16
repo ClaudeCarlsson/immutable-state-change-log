@@ -1,0 +1,23 @@
+{
+  "name": "chain-adapter",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc -b",
+    "clean": "tsc -b --clean",
+    "deploy": "hardhat run scripts/deploy.ts --network arbitrumGoerli"
+  },
+  "dependencies": {
+    "ethers": "^5.7.2",
+    "dotenv": "^10.0.0"
+  },
+  "devDependencies": {
+    "hardhat": "^2.19.2",
+    "@nomicfoundation/hardhat-toolbox": "^2.0.1",
+    "@nomicfoundation/hardhat-verify": "^1.0.0",
+    "ts-node": "^10.0.0",
+    "typescript": "^4.5.2",
+    "@types/node": "^16.0.0"
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "name": "zk-engine",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "setup": "curl -L https://hermez.s3-eu-west-1.amazonaws.com/powersOfTau28_hez_final_10.ptau -o circuits/powersOfTau28_hez_final_10.ptau",
+    "build:circuit": "circom circuits/Hash.circom --r1cs --wasm --sym -o circuits/build",
+    "generate-zkey": "snarkjs groth16 setup circuits/build/Hash.r1cs circuits/powersOfTau28_hez_final_10.ptau circuits/build/Hash_0000.zkey && snarkjs zkey contribute circuits/build/Hash_0000.zkey circuits/build/Hash_final.zkey --name=\"1st contribution\" && snarkjs zkey export verificationkey circuits/build/Hash_final.zkey circuits/build/verification_key.json",
+    "build": "npm run setup && npm run build:circuit && npm run generate-zkey && tsc",
+    "clean": "tsc -b --clean"
+  },
+  "dependencies": {
+    "snarkjs": "^0.7.5",
+    "hardhat": "^2.19.2",
+    "@nomicfoundation/hardhat-toolbox": "^2.0.1"
+  },
+  "devDependencies": {
+    "typescript": "^4.5.2",
+    "@types/node": "^16.0.0",
+    "snarkjs": "^0.7.5",
+    "hardhat": "^2.19.2",
+    "@nomicfoundation/hardhat-toolbox": "^2.0.1"
+  }
+}

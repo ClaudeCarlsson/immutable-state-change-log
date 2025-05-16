@@ -1,0 +1,82 @@
+import { useState, useEffect } from 'react';
+import axios from 'axios';
+
+interface Event {
+  id: string;
+  stateHash: string;
+  blockNumber: number;
+  txHash: string;
+  timestamp: number;
+}
+
+export default function Browse() {
+  const [events, setEvents] = useState<Event[]>([]);
+  const [filter, setFilter] = useState('');
+  const [filtered, setFiltered] = useState<Event[]>([]);
+
+  useEffect(() => {
+    async function fetchEvents() {
+      const res = await axios.post(process.env.NEXT_PUBLIC_INDEXER_URL!, {
+        query: `query { events { id stateHash blockNumber txHash timestamp } }`,
+      });
+      setEvents(res.data.data.events);
+      setFiltered(res.data.data.events);
+    }
+    fetchEvents();
+  }, []);
+
+  useEffect(() => {
+    setFiltered(
+      events.filter((e) =>
+        filter ? e.txHash.toLowerCase().includes(filter.toLowerCase()) : true,
+      ),
+    );
+  }, [filter, events]);
+
+  return (
+    <main className="max-w-4xl mx-auto p-4">
+      <h1 className="text-2xl font-bold mb-4">Browse States</h1>
+      <input
+        className="p-2 border rounded mb-4"
+        placeholder="Search by tx hash"
+        value={filter}
+        onChange={(e) => setFilter(e.target.value)}
+      />
+      <table className="min-w-full border-collapse">
+        <thead>
+          <tr>
+            <th className="border px-2 py-1">ID</th>
+            <th className="border px-2 py-1">State Hash</th>
+            <th className="border px-2 py-1">Block</th>
+            <th className="border px-2 py-1">Tx Hash</th>
+            <th className="border px-2 py-1">Arbiscan</th>
+          </tr>
+        </thead>
+        <tbody>
+          {filtered.map((e) => (
+            <tr key={e.id}>
+              <td className="border px-2 py-1">{e.id}</td>
+              <td className="border px-2 py-1">
+                <code>{e.stateHash}</code>
+              </td>
+              <td className="border px-2 py-1">{e.blockNumber}</td>
+              <td className="border px-2 py-1">
+                <code>{e.txHash}</code>
+              </td>
+              <td className="border px-2 py-1">
+                <a
+                  href={`https://goerli.arbiscan.io/tx/${e.txHash}`}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="text-blue-500"
+                >
+                  View
+                </a>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </main>
+  );
+}

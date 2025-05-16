@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    "target": "ES2019",
+    "module": "CommonJS",
+    "declaration": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "baseUrl": ".",
+    "paths": {
+      "zk-engine": ["packages/zk-engine/src"],
+      "chain-adapter": ["packages/chain-adapter/src"],
+      "indexer": ["packages/indexer/src"],
+      "web-ui": ["packages/web-ui/src"]
+    },
+    "composite": true,
+    "types": ["node"]
+  },
+  "references": [
+    { "path": "packages/zk-engine" },
+    { "path": "packages/chain-adapter" },
+    { "path": "packages/indexer" }
+  ],
+  "exclude": ["node_modules", "dist"]
+}
